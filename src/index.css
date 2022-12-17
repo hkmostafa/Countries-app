@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  @font-face {
+    font-family: 'Nunito';
+    src: url('../src/assets/fonts/Nunito_Sans/NunitoSans-Black.ttf') format('ttf');
+  
+  }
+
+}
+
+*,*::before,*::after{
+  box-sizing: border-box;
+}
+p, h1, h2, h3, h4, h5{
+  margin : 0;
+  padding : 0;
+}
