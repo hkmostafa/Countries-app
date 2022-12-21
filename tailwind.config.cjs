@@ -5,6 +5,7 @@ module.exports = {
     "./index.html",
     "./components/**/*.{html,js}",
   ],
+  darkMode: "class",
   theme: {
     colors: {
       Light: "hsl(0, 0%, 98%)",
@@ -17,16 +18,7 @@ module.exports = {
     fontFamily: {
       nunito: ["Nunito", "sans-serif"],
     },
-    fontSize: {
-      bigTitle: "2rem",
-      smallTitle: "1.6rem",
-      normal: "1rem",
-    },
-    fontWeight: {
-      bold: 800,
-      regular: 600,
-      light: 300,
-    },
+
     extend: {},
   },
   plugins: [],

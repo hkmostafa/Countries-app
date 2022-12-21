@@ -11,10 +11,10 @@ function App() {
   return (
     <Router>
       <Navbar/>
-      <div className="bg-Light font-nunito">
+      <div className="font-nunito bg-Light dark:bg-Dark transition-colors text-darkBlue dark:text-white min-h-screen md:px-16 px-6">
     <Routes>
-      <Route path='/' element={<Home/>}/>  
-      <Route path='/:countryid' element={<Country/>}/>
+      <Route path='/' element={<Home/>}/> 
+      <Route path='/:name' element={<Country/>}/>
       </Routes>
       </div>
     </Router>
