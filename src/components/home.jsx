@@ -97,7 +97,7 @@ function Home() {
       <div className="grid py-10 ">
         <div className="flex justify-between md:flex-row flex-col md:gap-0 gap-10 ">
           <div>
-          <AiOutlineSearch className="absolute md:left-20 left-12 top-32 text-xl cursor-pointer"/>
+          <AiOutlineSearch className="absolute md:left-28 left-12 top-32 text-xl cursor-pointer"/>
           <input type="text" value={searchValue} onChange={handleChangeSearch}  placeholder="Search for a country" className="shadow-md  w-full pl-[max(3.3rem,4vw)] pr-[15vw] py-3 border-none dark:bg-blue outline-none rounded-md"></input>
           </div>
     

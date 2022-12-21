@@ -9,17 +9,6 @@ function Country() {
     const navigate= useNavigate();
     const [borderNames,setBorderNames]=useState([]);
     
-   const getCountriesByCode = (borders) =>{
-      const BorderNames = []
-
-      borders.forEach(b => {
-            axios.get(`https://restcountries.com/v2/alpha/${b}`).then(response=>{
-                  BorderNames.push(response.data.name);
-            })
-
-      });
-      return setBorderNames(BorderNames);
-   }   
 
      function fetchCountry(){
       axios.get(`https://restcountries.com/v3.1/name/${params.name}?fullText=true`).then((response=>{
@@ -37,22 +26,26 @@ function Country() {
             flag : response.data[0].flags.svg,
             borders : response.data[0].borders    
           })
-          getCountriesByCode(response.data[0].borders)
+
       }
       
       ))
-
-    
   }
   
-  console.log(borderNames)
+  
   
   const countryClick = (country) => {
-      console.log(country)
-      navigate(`/${country.name}`)
+      axios.get(`https://restcountries.com/v2/alpha/${country}`).then(response=>{
+            console.log(response)
+       navigate(`/${response.data.name}`)
+      location.reload()
+      })
+      
    
     };
+
     
+
   useEffect(()=>{
     fetchCountry()
     
@@ -60,54 +53,59 @@ function Country() {
 
 return(
   <div className="pt-16 font-nunito">
-    <a href="/" className="bg-white dark:bg-blue px-16 py-2 shadow-md flex items-center rounded-md w-fit justify-center gap-2 "><BsArrowLeft className="absolute left-[50px] md:left-[92px] text-lg font-bold p-0"/>Back</a>
+    <a href="/" className="bg-white dark:bg-blue px-16 py-2 shadow-md flex items-center rounded-md w-fit justify-center gap-2 hover:cursor-pointer"><BsArrowLeft className="absolute left-[50px] md:left-[120px] text-lg font-bold p-0"/>Back</a>
   
     {country ? 
     
-    <div className="pt-16 grid lg:grid-cols-2  md:gap-0 ">
+    <div className="pt-10 grid sm:justify-center  lg:grid-cols-2  lg:gap-20 ">
       <img src={country.flag} alt="" className="max-h-[360px]  rounded-md" />
-      <div className="py-10 sm:px-10   md:px-[10%] ">
+      <div className="py-10">
       <h1 className="text-3xl font-bold pb-8"> {country.name}</h1>
-      <div className="grid md:grid-cols-2 gap-10  ">
-        <div className="flex flex-col lg:gap-2  ">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-0 md:pb-10 ">
+        <div className="flex flex-col gap-2 lg:gap-2  ">
              <div className="inline-flex items-center gap-1 ">
-                    <h5 className=''>Native Name : </h5> <p className='text-sm opacity-80'> {Object.values(country.nativeName)[0].common}</p>
+                    <h5 className='text-sm font-semibold'>Native Name: </h5> <p className='text-sm opacity-80'> {Object.values(country.nativeName)[0].common}</p>
               </div>
               <div className="inline-flex items-end gap-1 ">
-                    <h5 className=''>Population : </h5> <p className='text-sm opacity-80'> {country.population}</p>
+                    <h5 className='text-sm font-semibold'>Population: </h5> <p className='text-sm opacity-80'> {country.population}</p>
               </div>
               <div className="inline-flex items-end gap-1 ">
-                    <h5 className=''>Region : </h5> <p className='text-sm opacity-80'> {country.region}</p>
+                    <h5 className='text-sm font-semibold'>Region: </h5> <p className='text-sm opacity-80'> {country.region}</p>
               </div>
               <div className="inline-flex items-end gap-1 ">
-                    <h5 className=''>Sub Region : </h5> <p className='text-sm opacity-80'> {country.subRegion}</p>
+                    <h5 className='text-sm font-semibold'>Sub Region: </h5> <p className='text-sm opacity-80'> {country.subRegion}</p>
               </div>
               <div className="inline-flex items-end gap-1 ">
-                    <h5 className=''>Capital : </h5> <p className='text-sm opacity-80'> {country.capital}</p>
+                    <h5 className='text-sm font-semibold'>Capital: </h5> <p className='text-sm opacity-80'> {country.capital}</p>
               </div>
 
         </div>
-        <div className="flex flex-col gap-2  justify-items-start">
-            <div className="flex items-end  gap-1 ">
-                    <h5 className=''>Top Level Domain : </h5> <p className='text-sm opacity-80'> {country.topLevelDomaine}</p>
+        <div className="flex flex-col sm:gap-1 lg:gap-2 flex-wrap  justify-items-start">
+            <div className=" inline-flex items-end  gap-1  ">
+                    <h5 className='text-sm font-semibold'>Top Level Domain: </h5> <p className='text-sm opacity-80'> {country.topLevelDomaine}</p>
               </div>
-              <div className="flex items-end  gap-1 ">
-                    <h5 className=''>Currencies : </h5>{Object.entries(country.currencies).map(([key,value],index)=>{ return <p className='text-sm opacity-80' key={key}>{(index?' , ' : "") + value.name} </p>})} 
+              <div className="inline gap-1 ">
+                    <h5 className='text-sm font-semibold'>Currencies: </h5>{Object.entries(country.currencies).map(([key,value],index)=>{ return <p className='text-sm opacity-80 flex-wrap' key={key}>{(index?' , ' : "") + value.name} </p>})} 
               </div>
-              <div className="flex items-end   gap-1 ">
-                    <h5 className=''>Languages : </h5> {Object.entries(country.languages).map(([key,value],index)=>{ return <p className='text-sm opacity-80' key={key}>{(index?', ' : "") + value} </p>})} 
+              <div className="inline-flex  items-end   gap-1 ">
+                    <h5 className='text-sm font-semibold'>Languages: </h5> {Object.entries(country.languages).map(([key,value],index)=>{ return <p className='text-sm opacity-80' key={key}>{(index?', ' : "") + value} </p>})} 
               </div>
         </div>
-      </div>
-      <div className="flex">
-            <h1>Border countries : </h1>
+        {
+            country.borders &&
+        <div className="grid md:pt-10 md:grid-cols-3 md:col-span-2 gap-3 ">
+            <h1 className="text-sm font-semibold col-span-1">Border countries : </h1>
+            <div className="flex flex-wrap col-span-2 gap-2">
             {
-            borderNames &&
-            borderNames.map((b)=>{
+            country.borders.map((b)=>{
                
-                  return <button onClick={()=>countryClick()} key={b} className="flex px-5 shadow-lg mx-3 font-thin" >{b}</button>
+                  return <button onClick={()=>countryClick(b)} key={b} className="px-6 py-1 shadow-xl text-xs ">{b}</button>
             })}
-      </div>      
+            </div>
+      </div>  
+            } 
+      </div>
+       
       </div>
      
 

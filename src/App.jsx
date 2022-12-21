@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Navbar/>
-      <div className="font-nunito bg-Light dark:bg-Dark transition-colors text-darkBlue dark:text-white min-h-screen md:px-16 px-6">
+      <div className="font-nunito bg-Light dark:bg-Dark transition-colors text-darkBlue dark:text-white min-h-screen md:px-24 px-6 ">
     <Routes>
       <Route path='/' element={<Home/>}/> 
       <Route path='/:name' element={<Country/>}/>
